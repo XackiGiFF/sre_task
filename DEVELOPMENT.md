@@ -87,5 +87,5 @@ and
 ```Dockerfile
 ENV GO111MODULE=on
 ```
-# For correct job we need delete /db default folder for enable SQL skripts.
+# For correct job we need delete /db default folder for enable SQL scripts.
 
