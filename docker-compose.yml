@@ -1,0 +1,27 @@
+version: '3.8'
+
+x-pg-common: &pg_common
+  build:
+    context: ./postgres
+    dockerfile: Dockerfile
+
+services:
+
+  phonebook_backend:
+    container_name: phonebook_backend_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+  phonebookdb:
+    container_name: phonebookdb
+    # image: postgres
+    <<: *pg_common
+    volumes: 
+      - ./db:/var/lib/postgresql/data
+
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: always
+    tty: true
