@@ -1,7 +1,7 @@
 # Start from golang base image
-#FROM golang:alpine as builder
+FROM golang:alpine as builder
 
-# ENV GO111MODULE=on
+ENV GO111MODULE=on
 
 # Add Maintainer info
 LABEL maintainer="xxxx"

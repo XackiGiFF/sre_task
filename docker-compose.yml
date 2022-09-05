@@ -1,4 +1,4 @@
-version: '3.8'
+version: '2.3'
 
 x-pg-common: &pg_common
   build:
@@ -12,6 +12,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      phonebookdb:
+        condition: service_healthy
+    ports:
+     - '8000:8000'
 
   phonebookdb:
     container_name: phonebookdb
@@ -19,6 +24,16 @@ services:
     <<: *pg_common
     volumes: 
       - ./db:/var/lib/postgresql/data
+      - ./sql/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    environment:
+      POSTGRES_USER: jim
+      POSTGRES_PASSWORD: sdljflsdjfe
+      POSTGRES_DB: phonebook
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jim -d phonebook -h localhost -p 5432"]
+      interval: 5s
+      timeout: 120s
+      retries: 25
 
   webserver:
     image: nginx:alpine
