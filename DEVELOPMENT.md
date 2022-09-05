@@ -3,7 +3,7 @@ This simple GO build with Docker
 ##
 How to get first start:
 ```bash
-git clone http:// this repository
+git clone https://github.com/XackiGiFF/sre_task.git
 ```
 ```bash
 cd ./sre_task
